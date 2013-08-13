@@ -1,34 +1,45 @@
 
 var Board = function( selector ) {
-
-  this.PostItsGroup = []
+  this.postItsGroup = []
   var $elem = $( selector );
 };
 
 Board.prototype = {
-  addPostIt: function() {
-    var newone = new PostIt()
-    this.PostItsGroup.push(newone);
-  }
+  addpostIt: function(postIt) {
+    this.postItsGroup.push(postIt);
+  },
+
+  deletepostIt: function(postIt) {
+    var i = this.postItsGroup.indexOf(postIt);
+    this.postItsGroup.splice(i,1)
+ }
 }
 
-var PostIt = function() {
+var postIt = function() {
   this.content = ""
   // this.coord = $(this).position();
 };
 
-PostIt.prototype = {
+postIt.prototype = {
   // updateposition: function(){
   //   this.coord = $(this).position();
   // };
 
-  renderPostIt: function() {
+  renderpostIt: function(location) {
     this.domElement = $("<div class='post-it'></div>");
     var header = "<div class='header'><a href='#'> x </a></div>";
     var content = "<div class='content'>" + this.content + "</div>";
     this.domElement.append(header);
     this.domElement.append(content);
+    this.domElement.position({
+      of: event
+    });
     $('#board').append(this.domElement);
+  },
+
+  renderContent: function(postIt) {
+    this.content = postIt.val()
+
   }
 }
 
@@ -36,16 +47,28 @@ $(function() {
 
   board = new Board('#board');
   
-  $('.post-it .content').on('click', function(event){
+   $('#board').on('click', '.content', function(event){
     event.stopPropagation();
-    console.log(this)
+    console.log('create content')
+    // console.log($(this).createElement('p'))
+    console.log(document.createElement('p'))
   })  
 
-  $('#board').on('click', function(){
-    board.addPostIt();
-    // newone.renderPostIt()
+  $('#board').on('click', function(e){
+    var newone = new postIt()
+    board.addpostIt(newone);
+    newone.renderpostIt(e);
     $('.post-it').draggable({ handle: ".header"})
   })
+  
+ $('#board').on('click', 'a', function(event){
+    event.stopPropagation();
+    console.log('delete post')
+    board.deletepostIt($(this).closest('.post-it'))
+    $(this).closest('.post-it').remove();
+  });
+
+ 
   
 });
 
