@@ -17,18 +17,13 @@ Board.prototype = {
 
 var postIt = function() {
   this.content = ""
-  // this.coord = $(this).position();
 };
 
 postIt.prototype = {
-  // updateposition: function(){
-  //   this.coord = $(this).position();
-  // };
-
   renderpostIt: function(location) {
     this.domElement = $("<div class='post-it'></div>");
     var header = "<div class='header'><a href='#'> x </a></div>";
-    var content = "<div class='content'>" + this.content + "</div>";
+    var content = "<div class='content' contenteditable='true' >" + this.content + "</div>";
     this.domElement.append(header);
     this.domElement.append(content);
     this.domElement.position({
@@ -39,7 +34,6 @@ postIt.prototype = {
 
   renderContent: function(postIt) {
     this.content = postIt.val()
-
   }
 }
 
@@ -47,9 +41,10 @@ $(function() {
 
   board = new Board('#board');
   
-   $('#board').on('click', '.content', function(event){
+  $('#board').on('click', '.content', function(event){
      event.stopPropagation();
-   })  
+     console.log('hey')
+  })  
 
   $('#board').on('click', function(e){
     var newone = new postIt()
@@ -58,14 +53,9 @@ $(function() {
     $('.post-it').draggable({ handle: ".header"})
   })
   
- $('#board').on('click', 'a', function(event){
+  $('#board').on('click', 'a', function(event){
     event.stopPropagation();
-    console.log('delete post')
     board.deletepostIt($(this).closest('.post-it'))
     $(this).closest('.post-it').remove();
   });
-
- 
-  
 });
-
