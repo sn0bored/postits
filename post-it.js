@@ -48,11 +48,8 @@ $(function() {
   board = new Board('#board');
   
    $('#board').on('click', '.content', function(event){
-    event.stopPropagation();
-    console.log('create content')
-    console.log($(this).createElement('p'))
-    console.log(document.createElement('p'))
-  })  
+     event.stopPropagation();
+   })  
 
   $('#board').on('click', function(e){
     var newone = new postIt()
