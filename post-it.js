@@ -1,47 +1,53 @@
 
-var Board = function( selector ) {
-  // Your board related code goes here
+// var Board = function( selector ) {
+//   // Your board related code goes here
   
-  // Use $elem to access the DOM element for this board
+//   // Use $elem to access the DOM element for this board
 
-  var $elem = $( selector );
+//   var $elem = $( selector );
   
-  function initialize() {
-    this.PostItsGroup = []
-    // What needs to happen when this object is created?
-  };
+//   function initialize() {
+//     this.PostItsGroup = []
+//     // What needs to happen when this object is created?
+//   };
 
-  initialize();
-};
-// var Board = function() {
-//   this.PostItsGroup = []
-// }
+//   initialize();
+// };
 
-// Board.prototype = {
-//   addPostIt: function(PostIt) {
-//     this.PostItsGroup.push(PostIt)
-//   },
-//   renderBoard: function() {
-//     PostIt.renderPostIt();
-//   }
-// }
+var Board = function() {
+  this.PostItsGroup = []
+}
+
+ b 
+
+  deletePostIt: function(PostIt)
+
+  renderBoard: function() {
+    PostIt.renderPostIt();
+  },
+}
 
 var PostIt = function() {
   // Your post-it related code goes here
-  this.title = "";
-  this.content = "";
-  this.x_position = "";
-  this.y_position = "";
+  this.content = ""
+  this.coord = $(this).position();
 };
 
 PostIt.prototype = {
+  updateposition: function() {
+    this.coord = $(this).position
+  }
+
   renderPostIt: function() {
     this.domElement = $("<div class='post-it'></div>");
-    var header = "<div class='header'>" + this.title + "<a href='#'> x </a></div>";
-    var content = "<div class='content'>" + this.content + "</div>";
-    this.domElement.append(header);
-    this.domElement.append(content);
+    this.header = "<div class='header'><a href='#'> x </a></div>";
+    this.content = "<div class='content'>" + this.content + "</div>";
+    // this.domElement.append(header);
+    // this.domElement.append(content);
+
   }
+
+
 }
 
 $(function() {
