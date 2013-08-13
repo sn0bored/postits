@@ -50,7 +50,7 @@ $(function() {
    $('#board').on('click', '.content', function(event){
     event.stopPropagation();
     console.log('create content')
-    // console.log($(this).createElement('p'))
+    console.log($(this).createElement('p'))
     console.log(document.createElement('p'))
   })  
 
