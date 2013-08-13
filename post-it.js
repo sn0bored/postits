@@ -1,55 +1,51 @@
 
 var Board = function( selector ) {
-  // Your board related code goes here
-  
-  // Use $elem to access the DOM element for this board
 
+  this.PostItsGroup = []
   var $elem = $( selector );
-  
-  function initialize() {
-    this.PostItsGroup = []
-    // What needs to happen when this object is created?
-  };
-
-  initialize();
 };
-// var Board = function() {
-//   this.PostItsGroup = []
-// }
 
-// Board.prototype = {
-//   addPostIt: function(PostIt) {
-//     this.PostItsGroup.push(PostIt)
-//   },
-//   renderBoard: function() {
-//     PostIt.renderPostIt();
-//   }
-// }
+Board.prototype = {
+  addPostIt: function() {
+    var newone = new PostIt()
+    this.PostItsGroup.push(newone);
+  }
+}
 
 var PostIt = function() {
-  // Your post-it related code goes here
-  this.title = "";
-  this.content = "";
-  this.x_position = "";
-  this.y_position = "";
+  this.content = ""
+  // this.coord = $(this).position();
 };
 
 PostIt.prototype = {
+  // updateposition: function(){
+  //   this.coord = $(this).position();
+  // };
+
   renderPostIt: function() {
     this.domElement = $("<div class='post-it'></div>");
-    var header = "<div class='header'>" + this.title + "<a href='#'> x </a></div>";
+    var header = "<div class='header'><a href='#'> x </a></div>";
     var content = "<div class='content'>" + this.content + "</div>";
     this.domElement.append(header);
     this.domElement.append(content);
+    $('#board').append(this.domElement);
   }
 }
 
 $(function() {
-  // Board.new('#board');
-  // post.renderPostIt();
 
-  $('.post-it').draggable();
-  // This code will run when the DOM has finished loading
+  board = new Board('#board');
+  
+  $('.post-it .content').on('click', function(event){
+    event.stopPropagation();
+    console.log(this)
+  })  
+
+  $('#board').on('click', function(){
+    board.addPostIt();
+    // newone.renderPostIt()
+    $('.post-it').draggable({ handle: ".header"})
+  })
   
 });
 
